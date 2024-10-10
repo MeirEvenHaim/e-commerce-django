@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn --bind 0.0.0.0:8000 myproject.wsgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
