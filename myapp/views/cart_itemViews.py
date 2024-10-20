@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def cart_item_list(request):
+def Show_user_cart_and_create_user_cart(request):
     if request.method == 'GET':
         if request.user.is_staff:
             # Admin can see all cart items
@@ -49,7 +49,7 @@ def cart_item_list(request):
     
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def cart_item_detail(request, pk):
+def modify_the_user_carts(request, pk):
     cart_item = get_object_or_404(CartItem, pk=pk)
 
     # Admin can access all cart items; clients can only access their own cart items

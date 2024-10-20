@@ -3,6 +3,7 @@ from datetime import timedelta
 from logging.handlers import RotatingFileHandler
 # Base directory of the project
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(f"BASE_DIR {BASE_DIR}")
 
 # Secret Key (use a secure key in production)
 SECRET_KEY = 'your-secret-key'  # Replace with a secure key
@@ -153,10 +154,11 @@ USE_TZ = True
 # Default Auto Field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",
+        "LOCATION": "redis://redis:6379/1",  
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }

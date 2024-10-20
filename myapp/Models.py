@@ -57,8 +57,8 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
     stock = models.PositiveIntegerField()
-    supplier = models.ForeignKey(Supplier, related_name='products', on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)  # Foreign key to Category
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE, db_index=True)
+    supplier = models.ForeignKey(Supplier, related_name='products', on_delete=models.CASCADE, db_index=True)
     image = models.ImageField(upload_to='products/', blank=True, null=True)  # Handle image uploads
 
     def __str__(self):

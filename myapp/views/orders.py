@@ -5,7 +5,7 @@ from myapp.Models import Order
 from myapp.serializers.orderSerializer import OrderSerializer
 
 @api_view(['GET', 'POST'])
-def order_list(request):
+def orders_creations(request):
     if request.method == 'GET':
         orders = Order.objects.all()
         serializer = OrderSerializer(orders, many=True)
@@ -18,7 +18,7 @@ def order_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def order_detail(request, pk):
+def orders_updates_or_deletion(request, pk):
     try:
         order = Order.objects.get(pk=pk)
     except Order.DoesNotExist:

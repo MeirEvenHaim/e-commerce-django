@@ -1,5 +1,7 @@
 import logging
-
+import requests
+from functools import wraps
+from django.core.cache import cache
 logger = logging.getLogger('myapp')
 
 def get_client_ip(request):
@@ -29,7 +31,7 @@ def log_with_context(logger, request, message, level='info'):
     log_method = getattr(logger, level, 'info')
     log_method(message, extra=extra)
 
-import requests
+
 
 def verify_ipn(ipn_data):
     """
@@ -47,4 +49,12 @@ def verify_ipn(ipn_data):
         return True
     else:
         return False
+    
 # Inside the payment_notification function after verifying the IPN
+
+#caching
+
+
+# myapp/utils/cache_utils.py
+
+

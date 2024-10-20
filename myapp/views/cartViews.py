@@ -19,7 +19,7 @@ from django.shortcuts import get_object_or_404
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])  # Allow all authenticated users, including admins and clients
-def cart_list(request):
+def Show_cart_and_create_cart(request):
     if request.method == 'GET':
         if request.user.is_staff:
             # Admins can view all carts
@@ -57,7 +57,7 @@ def cart_list(request):
         
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])  # Allow all authenticated users, including admins and clients
-def cart_detail(request, pk):
+def Show_cart_and_modify_cart(request, pk):
     cart = get_object_or_404(Cart, pk=pk)  # Get the cart by its primary key
 
     if request.user.is_staff:

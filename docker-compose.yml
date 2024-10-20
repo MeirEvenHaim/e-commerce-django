@@ -1,9 +1,7 @@
-version: '3'
-
 services:
   web:
     build: .
-    command: gunicorn --bind 0.0.0.0:8000 myproject.wsgi:application
+    command: gunicorn --bind 0.0.0.0:8000 myproj.wsgi:application
     volumes:
       - .:/app
     ports:

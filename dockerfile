@@ -1,5 +1,5 @@
-# Use the official Python 3.10 image from the Docker Hub
-FROM python:3.10-slim
+# Use the latest official Python image from the Docker Hub
+FROM python:latest
 
 # Set the working directory in the container
 WORKDIR /app
@@ -17,4 +17,5 @@ COPY . .
 EXPOSE 8000
 
 # Run the Django application with Gunicorn and bind to port 8000
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "myproj.wsgi:application"]
+

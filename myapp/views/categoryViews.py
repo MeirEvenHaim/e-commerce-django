@@ -6,7 +6,7 @@ from myapp.serializers.categorySerializer import CategorySerializer
 
 # 1. Category Views
 @api_view(['GET', 'POST'])
-def category_list_create(request):
+def categories_preview_and_or_creation(request):
     if request.method == 'GET':
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
@@ -20,7 +20,7 @@ def category_list_create(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def category_detail(request, pk):
+def categories_modification_and_or_deletion(request, pk):
     try:
         category = Category.objects.get(pk=pk)
     except Category.DoesNotExist:

@@ -5,7 +5,7 @@ from myapp.Models import Shipping
 from myapp.serializers.shippingSerializer import ShippingSerializer
 
 @api_view(['GET', 'POST'])
-def shipping_list(request):
+def shipping_orders_adresses_preview_or_creation(request):
     if request.method == 'GET':
         shippings = Shipping.objects.all()
         serializer = ShippingSerializer(shippings, many=True)

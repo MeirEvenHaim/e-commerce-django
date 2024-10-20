@@ -5,7 +5,7 @@ from myapp.Models import Payment
 from myapp.serializers.payment_serializer import PaymentSerializer
 
 @api_view(['GET', 'POST'])
-def payment_list(request):
+def Payment_creation(request):
     """List all payments or create a new payment."""
     if request.method == 'GET':
         payments = Payment.objects.all()
@@ -20,7 +20,7 @@ def payment_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def payment_detail(request, pk):
+def Payment_modifications(request, pk):
     """Retrieve, update, or delete a payment."""
     try:
         payment = Payment.objects.get(pk=pk)
