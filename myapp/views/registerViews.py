@@ -2,15 +2,12 @@
 from django.core.mail import send_mail
 from django.conf import settings
 # views/register_views.py
-from django.core.mail import send_mail
-from django.conf import settings
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import get_user_model
-from myapp.Models import Client
 from myapp.serializers.userSerializer import UserCreateSerializer
+from django.contrib.auth.models import User
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -18,14 +15,6 @@ def register(request):
     serializer = UserCreateSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
-
-        # Check if user should be an admin
-        if request.data.get('is_staff'):
-            user.is_staff = True
-            user.save()
-
-        # Create a Client profile
-        Client.objects.create(user=user)
 
         # Send a welcome email
         send_mail(

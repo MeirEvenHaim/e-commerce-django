@@ -1,5 +1,5 @@
 from django.urls import path
-from myapp.views.cart_itemViews import Show_user_cart_and_create_user_cart , modify_the_user_carts 
+from myapp.views.cart_link_product_Views import show_user_cart_and_create_user_cart , modify_user_cart_item 
 from myapp.views.categoryViews import categories_preview_and_or_creation, categories_modification_and_or_deletion
 from myapp.views.paymentView import Payment_creation, Payment_modifications
 from myapp.views.productViews import modifying_existing_products, creation_of_products_and_preview_products
@@ -49,8 +49,8 @@ urlpatterns = [
     path('carts/<int:pk>/', Show_cart_and_modify_cart, name='cart-detail'),
     
     # CartItem URLs
-    path('cart-items/' ,Show_user_cart_and_create_user_cart, name='cart-item-list'),
-    path('cart-items/<int:pk>/', modify_the_user_carts, name='cart-item-detail'),
+    path('cart_link_products/' ,show_user_cart_and_create_user_cart, name='cart-item-list'),
+    path('cart_link_products/<int:pk>/', modify_user_cart_item, name='cart-item-detail'),
     
     # Order URLs
     path('orders/', orders_creations, name='order-list'),

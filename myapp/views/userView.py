@@ -1,11 +1,10 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from myapp.Models import Client
-from myapp.serializers.userSerializer import UserCreateSerializer, ClientSerializer  # Ensure you import ClientSerializer
+from myapp.serializers.userSerializer import UserCreateSerializer  
 from myapp.permissions import IsAdminOrOwner
 from rest_framework.permissions import IsAuthenticated
-
+from django.contrib.auth.models import User
 
 class UserViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
@@ -18,43 +17,41 @@ class UserViewSet(ViewSet):
         return super().get_permissions()
 
     def list(self, request):
-        users = Client.objects.all()
-        serializer = ClientSerializer(users, many=True)  # Use ClientSerializer here
-        return Response(serializer.data)
+        users = User.objects.all()
+        return Response(users.data)
 
     def retrieve(self, request, pk=None):
         try:
-            user = Client.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
             self.check_object_permissions(request, user)
-            serializer = ClientSerializer(user)  # Use ClientSerializer here
-            return Response(serializer.data)
-        except Client.DoesNotExist:
+            return Response(user.data)
+        except User.DoesNotExist:
             return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     def update(self, request, pk=None):
         try:
-            user = Client.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
             self.check_object_permissions(request, user)
             serializer = UserCreateSerializer(user.user, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Client.DoesNotExist:
+        except User.DoesNotExist:
             return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     def destroy(self, request, pk=None):
         try:
-            user = Client.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
             self.check_object_permissions(request, user)
             user.delete()
             return Response({'message': 'User deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
-        except Client.DoesNotExist:
+        except User.DoesNotExist:
             return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
     def partial_update(self, request, pk=None):
         try:
-            user = Client.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
             self.check_object_permissions(request, user)
             
             # Check if the request is to change the user's admin status
@@ -68,5 +65,5 @@ class UserViewSet(ViewSet):
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Client.DoesNotExist:
+        except User.DoesNotExist:
             return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)

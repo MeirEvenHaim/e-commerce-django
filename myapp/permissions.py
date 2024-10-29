@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 
-from myapp.Models import Cart, CartItem
+from myapp.Models import Cart, Cart_link_product
 class IsAdminOrSelf(BasePermission):
     """
     Custom permission to allow only admin to perform any action
